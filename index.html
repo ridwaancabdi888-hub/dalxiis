@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RIDWAN - Discover Your Next Adventure</title>
+    <meta name="description" content="RIDWAN - Discover breathtaking destinations across Somaliland. Curated travel experiences from Hargeisa to Berbera, tailored to your dream adventure.">
+    <meta property="og:title" content="RIDWAN - Discover Your Next Adventure">
+    <meta property="og:description" content="Explore breathtaking destinations across Somaliland with RIDWAN's curated travel experiences.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Hargeysa_Somaliland.jpg/1280px-Hargeysa_Somaliland.jpg">
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23f59e0b'/%3E%3Cstop offset='1' stop-color='%23b45309'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Ctext x='32' y='45' font-family='Arial, sans-serif' font-size='34' font-weight='700' fill='white' text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.9rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            cursor: pointer;
+            transition: transform 0.3s ease, letter-spacing 0.3s ease;
+        }
+
+        .logo i {
+            font-size: 1.5rem;
+        }
+
+        .logo:hover {
+            transform: scale(1.04);
+            letter-spacing: 2.5px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            transition: 0.3s;
+        }
+
+        .mobile-menu.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        .mobile-menu.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu.active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+                   
+
+        .hero-content {
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .cta-button:hover {
+            background: white;
+            color: #f59e0b;
+            transform: translateY(-2px);
+        }
+
+        /* Destinations Section */
+        .destinations {
+            padding: 5rem 0;
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .destination-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-image {
+            height: 220px;
+            background-image: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(180, 83, 9, 0.05) 0%, rgba(180, 83, 9, 0.25) 55%, rgba(180, 83, 9, 0.92) 100%);
+        }
+
+        .card-image-title {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 2;
+            padding: 1rem 1.2rem;
+            color: #fff;
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .card-description {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .card-price {
+            font-size: 1.1rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 0;
+            background: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-icon i::before {
+            background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .feature-description {
+            color: #666;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);
+            color: white;
+        }
+
+        .testimonials .section-title {
+            color: white;
+            -webkit-text-fill-color: white;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 5rem 0;
+            background: #f8f9fa;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .contact-info h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .contact-info p {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .contact-icon {
+            margin-right: 0.5rem;
+        }
+
+        .contact-icon::before {
+            background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #f59e0b;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .form-success {
+            display: none;
+            align-items: center;
+            gap: 0.6rem;
+            background: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+            border-radius: 8px;
+            padding: 0.9rem 1rem;
+            margin-top: 1rem;
+            font-weight: 500;
+            animation: fadeInUp 0.4s ease;
+        }
+
+        .form-success.visible {
+            display: flex;
+        }
+
+        /* Destination Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-box {
+            background: white;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: fadeInUp 0.35s ease;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 0.8rem;
+            right: 0.8rem;
+            width: 36px;
+            height: 36px;
+            border: none;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            font-size: 1.3rem;
+            line-height: 1;
+            cursor: pointer;
+            z-index: 2;
+            transition: background 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: white;
+        }
+
+        .modal-image {
+            height: 260px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .modal-content {
+            padding: 1.8rem;
+        }
+
+        .modal-content h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: #333;
+        }
+
+        .modal-content p {
+            color: #666;
+            margin-bottom: 1.2rem;
+        }
+
+        .modal-price {
+            font-size: 1.2rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.2rem;
+        }
+
+        .modal-book-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .modal-book-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a1a1a;
+            color: #ccc;
+            padding: 4rem 0 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 3rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .footer-social a {
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);
+            transform: translateY(-3px);
+        }
+
+        .footer-links h4,
+        .footer-contact h4 {
+            color: #fff;
+            font-size: 1.1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.7rem;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-contact p {
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+        }
+
+        .footer-contact i {
+            margin-right: 0.5rem;
+            width: 16px;
+        }
+
+        .footer-contact i::before {
+            background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 1.5rem 0;
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                align-items: center;
+                gap: 0;
+                background: rgba(255, 255, 255, 0.98);
+                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+                padding: 1rem 0;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-menu li {
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-menu a {
+                display: block;
+                padding: 0.9rem 0;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-social {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo"><i class="fas fa-compass"></i>DALXIIS </div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#destinations">Destinations</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu" role="button" tabindex="0" aria-label="Toggle navigation menu"
+                aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Ku dalxiis wadankaga somaliland</h1>
+            <p>Explore breathtaking destinations across Somaliland with our curated travel experiences. From
+                bustling capital streets to misty mountain peaks, your perfect journey awaits.</p>
+            <a href="#destinations" class="cta-button">Start Torist</a>
+        </div>
+    </section>
+
+    <!-- Destinations Section -->
+    <section id="destinations" class="destinations">
+        <div class="container">
+            <h2 class="section-title">Popular Destinations</h2>
+            <div class="destinations-grid">
+                <div class="destination-card fade-in"
+                    data-details="Somaliland's capital and largest city, Hargeisa blooms at golden hour into a sea of sunlit rooftops stretching toward the hills. Wander the lively Hargeisa markets, visit the moving War Memorial and MiG monument, sip traditional shaah at a rooftop café, and feel the pulse of a city rebuilding itself with pride and resilience.">
+                    <div class="card-image" role="img" aria-label="Hargeisa, Somaliland"
+                        style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Hargeysa_Somaliland.jpg/1280px-Hargeysa_Somaliland.jpg');">
+                        <div class="card-image-title">Hargeisa, Somaliland</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Hargeisa, Somaliland</h3>
+                        <p class="card-description">The vibrant capital city, alive with bustling markets, rich
+                            culture, and a warm, welcoming spirit.</p>
+                        <div class="card-price">From $180</div>
+                    </div>
+                </div>
+                <div class="destination-card fade-in"
+                    data-details="Once a key stop on ancient trade routes, Berbera pairs Red Sea-blue waters with centuries of history. Relax on the soft sands of its beaches, explore the weathered coral-stone architecture of the Old Town, snorkel vibrant reefs in the Gulf of Aden, and feast on the freshest grilled fish straight off the fishing boats.">
+                    <div class="card-image" role="img" aria-label="Berbera, Somaliland"
+                        style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Berbera_beach.JPG/1280px-Berbera_beach.JPG');">
+                        <div class="card-image-title">Berbera, Somaliland</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Berbera, Somaliland</h3>
+                        <p class="card-description">Somaliland's historic "Beach City" on the Gulf of Aden, with
+                            turquoise waters and Ottoman-era streets.</p>
+                        <div class="card-price">From $150</div>
+                    </div>
+                </div>
+                <div class="destination-card fade-in"
+                    data-details="Tucked into the highlands near the Ethiopian border, Borama enjoys a cooler climate and lush greenery rare in the region. Stroll past colorful courtyards and tree-lined streets, visit the region's respected colleges, and enjoy the unhurried hospitality that has made Borama one of Somaliland's most livable towns.">
+                    <div class="card-image" role="img" aria-label="Borama, Somaliland"
+                        style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/0/0c/Borama2.jpg');">
+                        <div class="card-image-title">Borama, Somaliland</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Borama, Somaliland</h3>
+                        <p class="card-description">A cool, green highland town known for its friendly people,
+                            gardens, and relaxed pace of life.</p>
+                        <div class="card-price">From $140</div>
+                    </div>
+                </div>
+                <div class="destination-card fade-in"
+                    data-details="Sprawling across the Togdheer plains, Burco is home to one of the largest livestock markets in the Horn of Africa, where centuries-old nomadic traditions meet a fast-growing city. Watch camel herders lead their animals through the dusty streets and experience authentic pastoral life up close.">
+                    <div class="card-image" role="img" aria-label="Burco, Somaliland"
+                        style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/4/4e/Burco%2C_Somaliland.jpg');">
+                        <div class="card-image-title">Burco, Somaliland</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Burco, Somaliland</h3>
+                        <p class="card-description">Somaliland's second-largest city and the beating heart of its
+                            nomadic and livestock trading culture.</p>
+                        <div class="card-price">From $130</div>
+                    </div>
+                </div>
+                <div class="destination-card fade-in"
+                    data-details="Perched high in the Sanaag region, Cerigavo is the gateway to Daallo Mountain, where juniper forests, rolling clouds, and sheer escarpments create some of the most spectacular scenery in the Horn of Africa. Hike along cliff-edge trails, watch the mist roll in from the Gulf of Aden below, and cool off in a climate unlike anywhere else in Somaliland.">
+                    <div class="card-image" role="img" aria-label="Cerigavo, Somaliland"
+                        style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Daallo_Mountain_-_Erigavo%2C_Sanaag_Region%2C_Somaliland_05.jpg/1280px-Daallo_Mountain_-_Erigavo%2C_Sanaag_Region%2C_Somaliland_05.jpg');">
+                        <div class="card-image-title">Cerigavo, Somaliland</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Cerigavo, Somaliland</h3>
+                        <p class="card-description">Gateway to Daallo Mountain, with misty highland forests and the
+                            country's most dramatic cliff views.</p>
+                        <div class="card-price">From $160</div>
+                    </div>
+                </div>
+                <div class="destination-card fade-in"
+                    data-details="Set at 1,430 meters in the Golis Mountains, Sheekh has long been a cool-season retreat with panoramic views over the plains below. Explore the remains of one of the Horn of Africa's largest medieval settlements, breathe crisp mountain air among juniper woodlands, and take in unforgettable sunsets from the escarpment road.">
+                    <div class="card-image" role="img" aria-label="Sheekh, Somaliland"
+                        style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Somaliland%2C_Sheikh%2C_aerial_view_%2801%29.jpg/1280px-Somaliland%2C_Sheikh%2C_aerial_view_%2801%29.jpg');">
+                        <div class="card-image-title">Sheekh, Somaliland</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Sheekh, Somaliland</h3>
+                        <p class="card-description">A historic mountain town prized for its cool air, colonial-era
+                            buildings, and sweeping views.</p>
+                        <div class="card-price">From $145</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose Us</h2>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-globe-americas"></i>
+                    </div>
+                    <h3 class="feature-title">Global Destinations</h3>
+                    <p class="feature-description">Access to over 100+ carefully curated destinations worldwide, from
+                        hidden gems to iconic landmarks.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Safe & Secure</h3>
+                    <p class="feature-description">Your safety is our priority with 24/7 support and comprehensive
+                        travel insurance coverage.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="feature-title">Personalized Service</h3>
+                    <p class="feature-description">Tailored experiences designed around your preferences, interests, and
+                        travel style.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <h3 class="feature-title">Best Prices</h3>
+                    <p class="feature-description">Competitive pricing with no hidden fees and flexible payment options
+                        for your convenience.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <h2 class="section-title">What Our Travelers Say</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card fade-in">
+                    <p class="testimonial-text">"An absolutely incredible experience! The team made our honeymoon
+                        unforgettable with their attention to detail and local expertise."</p>
+                    <div class="testimonial-author">- Sarah & Michael Johnson</div>
+                </div>
+                <div class="testimonial-card fade-in">
+                    <p class="testimonial-text">"From planning to execution, everything was seamless. We discovered
+                        places we never knew existed and created memories that will last a lifetime."</p>
+                    <div class="testimonial-author">- David Chen</div>
+                </div>
+                <div class="testimonial-card fade-in">
+                    <p class="testimonial-text">"The personalized service exceeded all expectations. They truly
+                        understood our travel style and delivered an amazing adventure."</p>
+                    <div class="testimonial-author">- Emma Rodriguez</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Ready to Start Your Journey?</h3>
+                    <p>Get in touch with our travel experts to plan your perfect getaway. We're here to make your travel
+                        dreams come true.</p>
+                    <div style="margin-top: 2rem;">
+                        <p><i class="fas fa-phone contact-icon"></i> +1 (555) 123-4567
+                        </p>
+                        <p><i class="fas fa-envelope contact-icon"></i>
+                            hello@ridwan.com</p>
+                        <p><i class="fas fa-map-marker-alt contact-icon"></i> 123
+                            Travel Street, Adventure City</p>
+                    </div>
+                </div>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="destination">Dream Destination</label>
+                        <input type="text" id="destination" name="destination"
+                            placeholder="Where would you like to go?">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Tell us about your ideal trip</label>
+                        <textarea id="message" name="message" rows="4"
+                            placeholder="Share your travel preferences and interests..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Start Planning My Trip</button>
+                    <div class="form-success" id="formSuccess" role="status">
+                        <i class="fas fa-circle-check"></i>
+                        <span>Thank you! Your message has been received - our travel experts will get back to you
+                            soon.</span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo"><i class="fas fa-compass"></i>RIDWAN</div>
+                    <p>Curated travel experiences for the adventurous soul. We turn your dream destinations into
+                        unforgettable journeys.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#destinations">Destinations</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Get In Touch</h4>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                    <p><i class="fas fa-envelope"></i> hello@ridwan.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Travel Street, Adventure City</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 RIDWAN. All rights reserved. | Made with ❤️ for travelers</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Destination Detail Modal -->
+    <div class="modal-overlay" id="destinationModal">
+        <div class="modal-box">
+            <button class="modal-close" id="modalCloseBtn" aria-label="Close">&times;</button>
+            <div class="modal-image" id="modalImage"></div>
+            <div class="modal-content">
+                <h3 id="modalTitle"></h3>
+                <p id="modalDetails"></p>
+                <div class="modal-price" id="modalPrice"></div>
+                <button class="modal-book-btn" id="modalBookBtn">Book Now</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navMenu = document.querySelector('.nav-menu');
+
+        function toggleMobileMenu() {
+            const isOpen = navMenu.classList.toggle('active');
+            mobileMenu.classList.toggle('active', isOpen);
+            mobileMenu.setAttribute('aria-expanded', isOpen);
+        }
+
+        mobileMenu.addEventListener('click', toggleMobileMenu);
+        mobileMenu.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleMobileMenu();
+            }
+        });
+
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                mobileMenu.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+                navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.boxShadow = 'none';
+            }
+        });
+
+        // Form submission
+        const contactForm = document.querySelector('.contact-form');
+        const formSuccess = document.getElementById('formSuccess');
+
+        contactForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            formSuccess.classList.add('visible');
+            contactForm.reset();
+            formSuccess.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+
+        // Add some interactive effects to destination cards
+        document.querySelectorAll('.destination-card').forEach(card => {
+            card.addEventListener('mouseenter', function () {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+
+            card.addEventListener('mouseleave', function () {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Destination detail modal
+        const destinationModal = document.getElementById('destinationModal');
+        const modalImage = document.getElementById('modalImage');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDetails = document.getElementById('modalDetails');
+        const modalPrice = document.getElementById('modalPrice');
+        const modalBookBtn = document.getElementById('modalBookBtn');
+        const modalCloseBtn = document.getElementById('modalCloseBtn');
+        const destinationInput = document.getElementById('destination');
+        let activeDestinationName = '';
+
+        function openDestinationModal(card) {
+            const name = card.querySelector('.card-title').textContent;
+            const price = card.querySelector('.card-price').textContent;
+            const image = card.querySelector('.card-image').style.backgroundImage;
+            const details = card.dataset.details || card.querySelector('.card-description').textContent;
+
+            activeDestinationName = name;
+            modalImage.style.backgroundImage = image;
+            modalTitle.textContent = name;
+            modalDetails.textContent = details;
+            modalPrice.textContent = price;
+            destinationModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDestinationModal() {
+            destinationModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.querySelectorAll('.destination-card').forEach(card => {
+            card.addEventListener('click', () => openDestinationModal(card));
+        });
+
+        modalCloseBtn.addEventListener('click', closeDestinationModal);
+
+        destinationModal.addEventListener('click', (e) => {
+            if (e.target === destinationModal) {
+                closeDestinationModal();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && destinationModal.classList.contains('active')) {
+                closeDestinationModal();
+            }
+        });
+
+        modalBookBtn.addEventListener('click', () => {
+            closeDestinationModal();
+            destinationInput.value = activeDestinationName;
+            const contactSection = document.querySelector('#contact');
+            contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            setTimeout(() => document.getElementById('name').focus(), 500);
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            const rate = scrolled * -0.5;
+            hero.style.transform = `translateY(${rate}px)`;
+        });
+
+
+        //  ha isticmaalin code kan hoose 
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+
+        document.onkeydown = function (e) {
+            if (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 73)) {
+                return false;
+            }
+        };
+    </script>
+</body>
+
+</html>
