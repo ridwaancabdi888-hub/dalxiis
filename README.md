@@ -16,10 +16,26 @@ Live website: [https://dalxiis-six.vercel.app/](https://dalxiis-six.vercel.app/)
 
 ## Run locally
 
-1. Clone or download this repository.
-2. Open `index.html` in a modern web browser.
+1. Clone the repository and enter its folder:
 
-For automatic browser refresh while editing, you can also serve the folder with a simple local development server such as VS Code Live Server.
+```bash
+git clone https://github.com/ridwaancabdi888-hub/dalxiis.git
+cd dalxiis
+```
+
+2. Start a local HTTP server from the repository root:
+
+```bash
+# Windows
+py -m http.server 8000
+
+# macOS/Linux
+python3 -m http.server 8000
+```
+
+3. Open [http://localhost:8000](http://localhost:8000).
+
+Opening `index.html` directly also works for most features, but using a local server more closely matches the deployed website and avoids browser restrictions on local files. Press `Ctrl+C` in the terminal to stop the server.
 
 ## Project structure
 
