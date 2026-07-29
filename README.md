@@ -37,6 +37,8 @@ python3 -m http.server 8000
 
 Opening `index.html` directly also works for most features, but using a local server more closely matches the deployed website and avoids browser restrictions on local files. Press `Ctrl+C` in the terminal to stop the server.
 
+An internet connection is required to load Google Fonts, Font Awesome, and destination images because those assets are hosted externally. The page structure and interactions remain available if an external asset fails to load.
+
 ## Project structure
 
 ```text
