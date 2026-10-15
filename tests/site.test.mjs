@@ -82,6 +82,22 @@ test('destination cards retain keyboard and dialog semantics', () => {
     assert.ok(extractAttribute(modal, 'aria-labelledby'));
 });
 
+test('mobile navigation retains complete keyboard behavior', () => {
+    const menuButton = index.match(/<button\b[^>]*class=["'][^"']*\bmobile-menu\b[^"']*["'][^>]*>/i)?.[0];
+    assert.ok(menuButton, 'mobile menu button must exist');
+    assert.equal(extractAttribute(menuButton, 'type'), 'button');
+    assert.equal(extractAttribute(menuButton, 'aria-expanded'), 'false');
+    assert.equal(extractAttribute(menuButton, 'aria-controls'), 'primary-navigation');
+    assert.equal(extractAttribute(menuButton, 'aria-label'), 'Open navigation menu');
+
+    assert.match(index, /function\s+openMobileMenu\s*\(/);
+    assert.match(index, /function\s+closeMobileMenu\s*\(restoreFocus\s*=\s*true\)/);
+    assert.match(index, /requestAnimationFrame\(\(\)\s*=>\s*navMenu\.querySelector\(['"]a['"]\)\?\.focus\(\)\)/);
+    assert.match(index, /event\.key\s*===\s*['"]Escape['"][\s\S]*?closeMobileMenu\(\)/);
+    assert.match(index, /event\.key\s*!==\s*['"]Tab['"][\s\S]*?lastLink\.focus\(\)[\s\S]*?firstLink\.focus\(\)/);
+    assert.match(index, /if\s*\(restoreFocus\)\s*mobileMenu\.focus\(\)/);
+});
+
 test('contact fields keep explicit labels and native validation', () => {
     for (const id of ['name', 'email', 'destination', 'message']) {
         assert.match(index, new RegExp(`<label\\s+for=["']${id}["']`, 'i'));

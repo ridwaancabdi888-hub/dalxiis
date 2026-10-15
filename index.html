@@ -855,7 +855,7 @@
                 <li><a href="#travel-info">Travel Info</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
-            <button type="button" class="mobile-menu" aria-label="Toggle navigation menu"
+            <button type="button" class="mobile-menu" aria-label="Open navigation menu"
                 aria-expanded="false" aria-controls="primary-navigation">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
@@ -1136,20 +1136,57 @@
         const mobileMenu = document.querySelector('.mobile-menu');
         const navMenu = document.querySelector('.nav-menu');
 
+        function openMobileMenu() {
+            navMenu.classList.add('active');
+            mobileMenu.classList.add('active');
+            mobileMenu.setAttribute('aria-expanded', 'true');
+            mobileMenu.setAttribute('aria-label', 'Close navigation menu');
+            requestAnimationFrame(() => navMenu.querySelector('a')?.focus());
+        }
+
+        function closeMobileMenu(restoreFocus = true) {
+            navMenu.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            mobileMenu.setAttribute('aria-expanded', 'false');
+            mobileMenu.setAttribute('aria-label', 'Open navigation menu');
+            if (restoreFocus) mobileMenu.focus();
+        }
+
         function toggleMobileMenu() {
-            const isOpen = navMenu.classList.toggle('active');
-            mobileMenu.classList.toggle('active', isOpen);
-            mobileMenu.setAttribute('aria-expanded', isOpen);
+            if (navMenu.classList.contains('active')) {
+                closeMobileMenu();
+            } else {
+                openMobileMenu();
+            }
         }
 
         mobileMenu.addEventListener('click', toggleMobileMenu);
 
         navMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-                mobileMenu.classList.remove('active');
-                mobileMenu.setAttribute('aria-expanded', 'false');
-            });
+            link.addEventListener('click', () => closeMobileMenu());
+        });
+
+        navMenu.addEventListener('keydown', (event) => {
+            if (event.key !== 'Tab' || !navMenu.classList.contains('active')) return;
+
+            const links = [...navMenu.querySelectorAll('a[href]')];
+            const firstLink = links[0];
+            const lastLink = links[links.length - 1];
+
+            if (event.shiftKey && document.activeElement === firstLink) {
+                event.preventDefault();
+                lastLink.focus();
+            } else if (!event.shiftKey && document.activeElement === lastLink) {
+                event.preventDefault();
+                firstLink.focus();
+            }
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && navMenu.classList.contains('active')) {
+                event.preventDefault();
+                closeMobileMenu();
+            }
         });
 
         // Scroll animations
