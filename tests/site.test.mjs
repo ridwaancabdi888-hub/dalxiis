@@ -126,6 +126,14 @@ test('classic inline JavaScript remains syntactically valid', () => {
     }
 });
 
+test('scroll animation progressively enhances visible content', () => {
+    assert.match(index, /document\.documentElement\.classList\.add\(['"]js['"]\)/);
+    assert.match(index, /<script\s+src=["']reveal-on-scroll\.js["']><\/script>/i);
+    assert.match(index, /\.fade-in\s*\{\s*opacity:\s*1;\s*transform:\s*none;/);
+    assert.match(index, /\.js\s+\.fade-in\s*\{\s*opacity:\s*0;/);
+    assert.match(index, /DalxiisReveal\.observeElements\(/);
+});
+
 test('custom 404 page remains non-indexable and links home', () => {
     assert.match(notFound, /<meta\s+name=["']robots["']\s+content=["']noindex,\s*follow["']/i);
     assert.match(notFound, /<a\s+href=["']\/["'][^>]*>/i);
