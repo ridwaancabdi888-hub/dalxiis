@@ -1118,6 +1118,7 @@
     </div>
 
     <script src="reveal-on-scroll.js"></script>
+    <script src="mobile-navigation.js"></script>
     <script>
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -1143,57 +1144,12 @@
         const mobileMenu = document.querySelector('.mobile-menu');
         const navMenu = document.querySelector('.nav-menu');
 
-        function openMobileMenu() {
-            navMenu.classList.add('active');
-            mobileMenu.classList.add('active');
-            mobileMenu.setAttribute('aria-expanded', 'true');
-            mobileMenu.setAttribute('aria-label', 'Close navigation menu');
-            requestAnimationFrame(() => navMenu.querySelector('a')?.focus());
-        }
-
-        function closeMobileMenu(restoreFocus = true) {
-            navMenu.classList.remove('active');
-            mobileMenu.classList.remove('active');
-            mobileMenu.setAttribute('aria-expanded', 'false');
-            mobileMenu.setAttribute('aria-label', 'Open navigation menu');
-            if (restoreFocus) mobileMenu.focus();
-        }
-
-        function toggleMobileMenu() {
-            if (navMenu.classList.contains('active')) {
-                closeMobileMenu();
-            } else {
-                openMobileMenu();
-            }
-        }
-
-        mobileMenu.addEventListener('click', toggleMobileMenu);
-
-        navMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => closeMobileMenu());
-        });
-
-        navMenu.addEventListener('keydown', (event) => {
-            if (event.key !== 'Tab' || !navMenu.classList.contains('active')) return;
-
-            const links = [...navMenu.querySelectorAll('a[href]')];
-            const firstLink = links[0];
-            const lastLink = links[links.length - 1];
-
-            if (event.shiftKey && document.activeElement === firstLink) {
-                event.preventDefault();
-                lastLink.focus();
-            } else if (!event.shiftKey && document.activeElement === lastLink) {
-                event.preventDefault();
-                firstLink.focus();
-            }
-        });
-
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape' && navMenu.classList.contains('active')) {
-                event.preventDefault();
-                closeMobileMenu();
-            }
+        DalxiisNavigation.createMobileNavigation({
+            button: mobileMenu,
+            menu: navMenu,
+            eventTarget: document,
+            desktopQuery: window.matchMedia('(min-width: 769px)'),
+            scheduleFocus: window.requestAnimationFrame.bind(window),
         });
 
         // Scroll animations

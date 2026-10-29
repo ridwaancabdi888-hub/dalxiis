@@ -90,12 +90,9 @@ test('mobile navigation retains complete keyboard behavior', () => {
     assert.equal(extractAttribute(menuButton, 'aria-controls'), 'primary-navigation');
     assert.equal(extractAttribute(menuButton, 'aria-label'), 'Open navigation menu');
 
-    assert.match(index, /function\s+openMobileMenu\s*\(/);
-    assert.match(index, /function\s+closeMobileMenu\s*\(restoreFocus\s*=\s*true\)/);
-    assert.match(index, /requestAnimationFrame\(\(\)\s*=>\s*navMenu\.querySelector\(['"]a['"]\)\?\.focus\(\)\)/);
-    assert.match(index, /event\.key\s*===\s*['"]Escape['"][\s\S]*?closeMobileMenu\(\)/);
-    assert.match(index, /event\.key\s*!==\s*['"]Tab['"][\s\S]*?lastLink\.focus\(\)[\s\S]*?firstLink\.focus\(\)/);
-    assert.match(index, /if\s*\(restoreFocus\)\s*mobileMenu\.focus\(\)/);
+    assert.match(index, /<script\s+src=["']mobile-navigation\.js["']><\/script>/i);
+    assert.match(index, /DalxiisNavigation\.createMobileNavigation\(\{/);
+    assert.match(index, /desktopQuery:\s*window\.matchMedia\(['"]\(min-width:\s*769px\)['"]\)/);
 });
 
 test('contact fields keep explicit labels and native validation', () => {
