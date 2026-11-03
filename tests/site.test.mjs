@@ -80,6 +80,9 @@ test('destination cards retain keyboard and dialog semantics', () => {
     assert.equal(extractAttribute(modal, 'role'), 'dialog');
     assert.equal(extractAttribute(modal, 'aria-modal'), 'true');
     assert.ok(extractAttribute(modal, 'aria-labelledby'));
+    assert.match(modal, /\sinert(?:\s|>)/i);
+    assert.match(index, /<script\s+src=["']modal-controller\.js["']><\/script>/i);
+    assert.match(index, /DalxiisModal\.createModalController\(\{/);
 });
 
 test('mobile navigation retains complete keyboard behavior', () => {

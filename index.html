@@ -1104,7 +1104,7 @@
 
     <!-- Destination Detail Modal -->
     <div class="modal-overlay" id="destinationModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"
-        aria-hidden="true">
+        aria-hidden="true" inert>
         <div class="modal-box">
             <button type="button" class="modal-close" id="modalCloseBtn" aria-label="Close">&times;</button>
             <div class="modal-image" id="modalImage"></div>
@@ -1119,6 +1119,7 @@
 
     <script src="reveal-on-scroll.js"></script>
     <script src="mobile-navigation.js"></script>
+    <script src="modal-controller.js"></script>
     <script>
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -1214,7 +1215,18 @@
         const modalCloseBtn = document.getElementById('modalCloseBtn');
         const destinationInput = document.getElementById('destination');
         let activeDestinationName = '';
-        let modalTrigger = null;
+        const modalController = DalxiisModal.createModalController({
+            modal: destinationModal,
+            closeButton: modalCloseBtn,
+            body: document.body,
+            eventTarget: document,
+            backgroundElements: [
+                document.querySelector('.navbar'),
+                document.querySelector('main'),
+                document.querySelector('footer'),
+            ],
+            scheduleFocus: window.requestAnimationFrame.bind(window),
+        });
 
         function openDestinationModal(card) {
             const name = card.querySelector('.card-title').textContent;
@@ -1223,25 +1235,11 @@
             const details = card.dataset.details || card.querySelector('.card-description').textContent;
 
             activeDestinationName = name;
-            modalTrigger = card;
             modalImage.style.backgroundImage = image;
             modalTitle.textContent = name;
             modalDetails.textContent = details;
             modalPrice.textContent = price;
-            destinationModal.classList.add('active');
-            destinationModal.setAttribute('aria-hidden', 'false');
-            document.body.style.overflow = 'hidden';
-            requestAnimationFrame(() => modalCloseBtn.focus());
-        }
-
-        function closeDestinationModal(restoreFocus = true) {
-            destinationModal.classList.remove('active');
-            destinationModal.setAttribute('aria-hidden', 'true');
-            document.body.style.overflow = '';
-
-            if (restoreFocus && modalTrigger) {
-                modalTrigger.focus();
-            }
+            modalController.open(card);
         }
 
         document.querySelectorAll('.destination-card').forEach(card => {
@@ -1254,38 +1252,8 @@
             });
         });
 
-        modalCloseBtn.addEventListener('click', () => closeDestinationModal());
-
-        destinationModal.addEventListener('click', (e) => {
-            if (e.target === destinationModal) {
-                closeDestinationModal();
-            }
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && destinationModal.classList.contains('active')) {
-                closeDestinationModal();
-            }
-        });
-
-        destinationModal.addEventListener('keydown', (e) => {
-            if (e.key !== 'Tab') return;
-
-            const focusableElements = [...destinationModal.querySelectorAll('button')];
-            const firstElement = focusableElements[0];
-            const lastElement = focusableElements[focusableElements.length - 1];
-
-            if (e.shiftKey && document.activeElement === firstElement) {
-                e.preventDefault();
-                lastElement.focus();
-            } else if (!e.shiftKey && document.activeElement === lastElement) {
-                e.preventDefault();
-                firstElement.focus();
-            }
-        });
-
         modalBookBtn.addEventListener('click', () => {
-            closeDestinationModal(false);
+            modalController.close({ restoreFocus: false });
             destinationInput.value = activeDestinationName;
             const contactSection = document.querySelector('#contact');
             contactSection.scrollIntoView({
