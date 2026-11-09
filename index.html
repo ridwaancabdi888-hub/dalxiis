@@ -287,6 +287,7 @@
         .destination-card:focus-visible,
         .cta-button:focus-visible,
         .submit-btn:focus-visible,
+        .trip-preview-clear:focus-visible,
         .modal-book-btn:focus-visible,
         .modal-close:focus-visible,
         a:focus-visible,
@@ -535,6 +536,42 @@
 
         .form-success.visible {
             display: flex;
+        }
+
+        .trip-preview {
+            margin-top: 1rem;
+            padding: 1.25rem;
+            border: 1px solid #fcd34d;
+            border-radius: 10px;
+            background: #fffbeb;
+        }
+
+        .trip-preview[hidden] {
+            display: none;
+        }
+
+        .trip-preview h3 {
+            margin-bottom: 0.75rem;
+            color: #78350f;
+        }
+
+        .trip-preview pre {
+            margin-bottom: 1rem;
+            color: #333;
+            font: inherit;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+
+        .trip-preview-clear {
+            padding: 0.7rem 1rem;
+            border: 2px solid #b45309;
+            border-radius: 8px;
+            background: transparent;
+            color: #78350f;
+            font: inherit;
+            font-weight: 600;
+            cursor: pointer;
         }
 
         /* Destination Modal */
@@ -1062,11 +1099,16 @@
                             placeholder="Share your travel preferences and interests..."></textarea>
                     </div>
                     <button type="submit" class="submit-btn">Preview My Trip Idea</button>
-                    <div class="form-success" id="formSuccess" role="status">
-                        <i class="fas fa-circle-check"></i>
-                        <span>Demo only: no message was sent. Connect a verified form endpoint before accepting
+                    <div class="form-success visible" id="formSuccess" role="status" aria-live="polite">
+                        <i class="fas fa-circle-check" aria-hidden="true"></i>
+                        <span id="formStatusText">Demo only: no message will be sent or stored. Connect a verified form endpoint before accepting
                             enquiries.</span>
                     </div>
+                    <section class="trip-preview" id="tripPreview" aria-labelledby="tripPreviewTitle" tabindex="-1" hidden>
+                        <h3 id="tripPreviewTitle">Your trip idea preview</h3>
+                        <pre id="tripPreviewText"></pre>
+                        <button type="button" class="trip-preview-clear" id="tripPreviewClear">Start Over</button>
+                    </section>
                 </form>
             </div>
         </div>
@@ -1120,6 +1162,7 @@
     <script src="reveal-on-scroll.js"></script>
     <script src="mobile-navigation.js"></script>
     <script src="modal-controller.js"></script>
+    <script src="trip-preview.js"></script>
     <script>
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -1180,16 +1223,12 @@
 
         // Form submission
         const contactForm = document.querySelector('.contact-form');
-        const formSuccess = document.getElementById('formSuccess');
-
-        contactForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-            formSuccess.classList.add('visible');
-            contactForm.reset();
-            formSuccess.scrollIntoView({
-                behavior: prefersReducedMotion ? 'auto' : 'smooth',
-                block: 'nearest'
-            });
+        DalxiisTripPreview.createTripPreview({
+            form: contactForm,
+            preview: document.getElementById('tripPreview'),
+            previewText: document.getElementById('tripPreviewText'),
+            statusText: document.getElementById('formStatusText'),
+            clearButton: document.getElementById('tripPreviewClear'),
         });
 
         // Add pointer effects only when motion has not been reduced

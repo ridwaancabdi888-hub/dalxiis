@@ -112,6 +112,12 @@ test('contact fields keep explicit labels and native validation', () => {
     assert.equal(extractAttribute(emailInput, 'type'), 'email');
     assert.match(emailInput, /\srequired(?:\s|>)/i);
     assert.match(index, /id=["']formSuccess["'][^>]+role=["']status["']/i);
+    assert.match(index, /id=["']formStatusText["']/i);
+    assert.match(index, /id=["']tripPreview["'][^>]+aria-labelledby=["']tripPreviewTitle["'][^>]+tabindex=["']-1["'][^>]+hidden/i);
+    assert.match(index, /id=["']tripPreviewText["']/i);
+    assert.match(index, /id=["']tripPreviewClear["']/i);
+    assert.match(index, /<script\s+src=["']trip-preview\.js["']><\/script>/i);
+    assert.match(index, /DalxiisTripPreview\.createTripPreview\(\{/);
 });
 
 test('classic inline JavaScript remains syntactically valid', () => {
