@@ -1223,7 +1223,7 @@
 
         // Form submission
         const contactForm = document.querySelector('.contact-form');
-        DalxiisTripPreview.createTripPreview({
+        const tripPreviewController = DalxiisTripPreview.createTripPreview({
             form: contactForm,
             preview: document.getElementById('tripPreview'),
             previewText: document.getElementById('tripPreviewText'),
@@ -1294,6 +1294,7 @@
         modalBookBtn.addEventListener('click', () => {
             modalController.close({ restoreFocus: false });
             destinationInput.value = activeDestinationName;
+            tripPreviewController.invalidate();
             const contactSection = document.querySelector('#contact');
             contactSection.scrollIntoView({
                 behavior: prefersReducedMotion ? 'auto' : 'smooth',

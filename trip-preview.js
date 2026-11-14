@@ -33,6 +33,14 @@
 
         if (!form || !preview || !previewText || !statusText || !clearButton) return null;
 
+        function invalidate() {
+            if (preview.hidden) return;
+
+            preview.hidden = true;
+            previewText.textContent = '';
+            statusText.textContent = 'Trip details changed. Preview again to review the latest information.';
+        }
+
         function onSubmit(event) {
             event.preventDefault();
             if (!form.reportValidity()) return;
@@ -52,11 +60,14 @@
         }
 
         form.addEventListener('submit', onSubmit);
+        form.addEventListener('input', invalidate);
         clearButton.addEventListener('click', onClear);
 
         return {
+            invalidate,
             destroy() {
                 form.removeEventListener('submit', onSubmit);
+                form.removeEventListener('input', invalidate);
                 clearButton.removeEventListener('click', onClear);
             },
         };

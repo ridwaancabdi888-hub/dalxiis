@@ -80,6 +80,39 @@ test('invalid forms do not reveal a preview', () => {
     assert.equal(preview.focusCount, 0);
 });
 
+test('editing the form hides a stale preview and asks for a fresh review', () => {
+    const { form, preview, previewText, statusText } = createFixture();
+    form.dispatch('submit', { preventDefault() {} });
+
+    form.dispatch('input');
+
+    assert.equal(preview.hidden, true);
+    assert.equal(previewText.textContent, '');
+    assert.match(statusText.textContent, /details changed/i);
+    assert.match(statusText.textContent, /Preview again/i);
+});
+
+test('programmatic destination changes can invalidate an existing preview', () => {
+    const { controller, form, preview, previewText, statusText } = createFixture();
+    form.dispatch('submit', { preventDefault() {} });
+
+    controller.invalidate();
+
+    assert.equal(preview.hidden, true);
+    assert.equal(previewText.textContent, '');
+    assert.match(statusText.textContent, /latest information/i);
+});
+
+test('editing before a preview exists leaves the current status unchanged', () => {
+    const { form, preview, statusText } = createFixture();
+    statusText.textContent = 'Demo only: no message will be sent or stored.';
+
+    form.dispatch('input');
+
+    assert.equal(preview.hidden, true);
+    assert.equal(statusText.textContent, 'Demo only: no message will be sent or stored.');
+});
+
 test('Start Over clears the preview, resets fields and restores focus', () => {
     const { clearButton, form, nameField, preview, previewText, statusText } = createFixture();
     form.dispatch('submit', { preventDefault() {} });
